@@ -59,6 +59,7 @@ def get_tweets(api,search_term,regex,how_many):
   tweets_list=[]
   for tweet in tweepy.Cursor(api.search,
                               q=search_term,
+                              rpp=100,
                               result_type="recent",
                               include_entities=True).items(how_many):
     if re.search(regex,tweet.text):
@@ -78,7 +79,7 @@ def main():
   parser.add_argument('keys_user', type=str, help='file with user keys')
   parser.add_argument('search_term', type=str, help='search term')
   parser.add_argument('regex', type=str, help='regular expression')
-  parser.add_argument('how_many', type=int, nargs='?', help='How many tweets',default=100)
+  parser.add_argument('how_many', type=int, nargs='?', help='How many tweets',default=1000)
 
   #obtego los argumentos
   args = parser.parse_args()
